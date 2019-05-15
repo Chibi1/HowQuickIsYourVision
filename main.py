@@ -11,15 +11,19 @@ def main():
   level = 1
   displayDuration = 1000
   isCountingDown = False
-  displayDuration = 250
+  
+  GO = Image('99999:'
+              '99999:'
+              '99999:'
+              '99999:'
+              '99999:')
 
   #run game
   while True:
     if isGameStartUp == True:
       music.play(music.CHASE, wait=False, loop=True)
-    #displays start up text and begins game if b was pressed
+      display.scroll("Press B", wait=False, loop=True)
     while isGameStartUp == True:
-      display.scroll("Press B to play")
       if button_b.was_pressed():
         music.stop()
         display.clear()
@@ -33,12 +37,13 @@ def main():
       countDown = 3
       numberDisplayed = 0
       sleep(1000)
-      music.play(music.POWER_UP, wait=False, loop=True)
+      music.play(music.POWER_UP, wait=False)
       display.scroll("Level " + str(level))
       music.stop()
       #display countdown
       while isCountingDown == True:
         if countDown == 0:
+          display.show(GO)
           music.play('C6:3')
           display.clear()
           isCountingDown = False
@@ -51,10 +56,9 @@ def main():
       sleep(random.randint(2,6)*1000)
       numberDisplayed = random.randint(0,9)
       display.show(str(numberDisplayed))
-      sleep(displayDuration / level)
+      sleep(displayDuration / (2**level))
       display.clear()
       sleep(1000)
-      display.scroll("What is your answer?")
       isDisplayingNumber = False
       isWaitingForUser = True  
 
@@ -71,6 +75,7 @@ def main():
           flashCorrectAnswer(answer)
         else:
           music.play(music.WAWAWAWAA)
+          level = 0
           isWaitingForUser = False
           isGameOver = True
       elif button_a.was_pressed():
@@ -83,7 +88,7 @@ def main():
       if level == 1:
         display.scroll("You need to get your eyes checked")  
       else:
-        display.scroll("You can see " + str(displayDuration / (level - 1)) + "ms")
+        display.scroll("You can see " + str(round(displayDuration / 2**(level - 1))) + "ms")
         isGameOver = False
         isGameStartUp = True
 
