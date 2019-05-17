@@ -9,7 +9,7 @@ def main():
   isWaitingForUser = False
   isGameOver = False
   level = 1
-  displayDuration = 1000
+  displayDuration = 500
   isCountingDown = False
   
   GO = Image('99999:'
@@ -53,7 +53,7 @@ def main():
           sleep(1000)
           countDown-= 1
       #display integer for set amount of time
-      sleep(random.randint(2,6)*1000)
+      sleep(random.randint(2,5)*1000)
       numberDisplayed = random.randint(0,9)
       display.show(str(numberDisplayed))
       sleep(displayDuration / (2**level))
@@ -75,7 +75,6 @@ def main():
           flashCorrectAnswer(answer)
         else:
           music.play(music.WAWAWAWAA)
-          level = 0
           isWaitingForUser = False
           isGameOver = True
       elif button_a.was_pressed():
@@ -85,10 +84,14 @@ def main():
       display.show(str(answer))
 
     while isGameOver == True:
+      music.play(music.PYTHON, wait=False, loop=True)
       if level == 1:
         display.scroll("You need to get your eyes checked")  
+        isGameOver = False
+        isGameStartUp = True
       else:
         display.scroll("You can see " + str(round(displayDuration / 2**(level - 1))) + "ms")
+        level = 0
         isGameOver = False
         isGameStartUp = True
 
