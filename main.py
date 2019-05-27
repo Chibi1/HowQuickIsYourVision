@@ -4,6 +4,7 @@ import random
 
 def main():
   #initialising values
+  currentTemp = 0
   isGameStartUp = True
   isDisplayingNumber = False
   isWaitingForUser = False
@@ -25,7 +26,9 @@ def main():
       display.scroll("Press B", wait=False, loop=True)
     while isGameStartUp == True:
       if button_b.was_pressed():
+        currentTemp = temperature()
         music.stop()
+        display.scroll("Temp: " + str(currentTemp))
         display.clear()
         isGameStartUp = False
         isDisplayingNumber = True
